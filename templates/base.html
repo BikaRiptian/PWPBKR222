@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Pengguna</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-indigo-700 p-6 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold">Portal Manajemen Pengguna</h1>
+            <div>
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('logout') }}" class="hover:text-indigo-300 transition duration-300">Keluar</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="hover:text-indigo-300 transition duration-300">Masuk</a>
+                    <a href="{{ url_for('register') }}" class="ml-4 hover:text-indigo-300 transition duration-300">Daftar</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 px-6">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="bg-green-200 border border-green-500 text-green-800 px-5 py-4 rounded-lg mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="bg-indigo-700 text-white text-center py-5 mt-10">
+        <p>&copy; {{ current_year }} Portal Manajemen Pengguna. Semua hak dilindungi.</p>
+    </footer>
+</body>
+</html>
